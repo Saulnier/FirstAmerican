@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>First American | Genesys Messaging Testing</title>
+  <title>Escalate to Retention</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -12,129 +12,87 @@
       background: #f4f4f4;
       color: #1a1a1a;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
     header {
       background: #002B5C;
-      padding: 18px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 16px 24px;
       border-bottom: 4px solid #CC0000;
     }
 
-    .logo-text {
+    header h1 {
       color: #ffffff;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: bold;
-      letter-spacing: 0.01em;
     }
 
-    .logo-text span { color: #CC0000; }
-
-    .badge {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #ffffff;
-      font-size: 11px;
-      padding: 5px 12px;
-      border-radius: 20px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .hero {
-      background: #002B5C;
-      color: #ffffff;
-      padding: 48px 40px 40px;
-      border-bottom: 1px solid #001e42;
-    }
-
-    .hero h1 {
-      font-size: 30px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 14px;
-      color: #a8bcd4;
-      max-width: 500px;
-      line-height: 1.7;
+    .voice-tag {
+      display: none;
+      background: #eef2f6;
+      border-bottom: 1px solid #dde3ea;
+      padding: 8px 24px;
+      font-size: 12px;
+      color: #002B5C;
     }
 
     .form-wrap {
-      max-width: 460px;
-      margin: 48px auto 60px;
+      max-width: 420px;
+      margin: 28px auto;
       background: #ffffff;
       border: 1px solid #dde3ea;
       border-radius: 8px;
-      padding: 36px 40px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
 
-    .form-wrap h2 {
-      font-size: 17px;
-      color: #002B5C;
-      margin-bottom: 6px;
-    }
-
-    .form-wrap .subtitle {
+    .form-wrap p.subtitle {
       font-size: 13px;
       color: #666;
-      margin-bottom: 28px;
-      line-height: 1.6;
+      margin-bottom: 20px;
+      line-height: 1.5;
     }
 
-    .form-group { margin-bottom: 18px; }
+    .form-group { margin-bottom: 16px; }
 
     .form-group label {
       display: block;
       font-size: 13px;
       font-weight: bold;
       color: #002B5C;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
-    .form-group input {
+    .form-group input,
+    .form-group textarea {
       width: 100%;
-      padding: 10px 14px;
+      padding: 9px 12px;
       border: 1px solid #ccd3db;
       border-radius: 4px;
       font-size: 14px;
       font-family: Arial, sans-serif;
       outline: none;
-      transition: border-color 0.2s;
     }
 
-    .form-group input:focus { border-color: #002B5C; }
-    .form-group input.error { border-color: #CC0000; }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: #002B5C; }
 
-    .error-msg {
-      font-size: 12px;
-      color: #CC0000;
-      margin-top: 4px;
-      display: none;
-    }
+    .form-group textarea { resize: vertical; min-height: 70px; }
 
-    .start-btn {
+    .send-btn {
       width: 100%;
-      padding: 12px;
+      padding: 11px;
       background: #CC0000;
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: bold;
       font-family: Arial, sans-serif;
       cursor: pointer;
-      margin-top: 8px;
-      transition: background 0.2s;
+      margin-top: 4px;
     }
 
-    .start-btn:hover { background: #aa0000; }
+    .send-btn:hover { background: #aa0000; }
 
     .success-msg {
       display: none;
@@ -142,64 +100,60 @@
       padding: 12px 0 4px;
     }
 
-    .success-msg .icon { font-size: 36px; margin-bottom: 12px; }
+    .success-msg .icon { font-size: 32px; margin-bottom: 10px; }
 
     .success-msg p {
       color: #002B5C;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .success-msg span {
-      font-size: 13px;
-      color: #666;
-    }
+    .success-msg span { font-size: 12px; color: #666; }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-text">First <span>American</span></div>
-  <div class="badge">⬤&nbsp; Test Environment</div>
+  <h1>Escalate to Retention Queue</h1>
 </header>
 
-<div class="hero">
-  <h1>Genesys Messaging Testing</h1>
-  <p>This is a pilot page for testing digital interactions via Genesys Web Messaging. Please fill in your details below to get started.</p>
+<div class="voice-tag" id="voiceTag">
+  Linked voice call: <span id="voiceTagValue"></span>
 </div>
 
 <div class="form-wrap">
 
-  <div id="chatForm">
-    <h2>Before we begin</h2>
-    <p class="subtitle">Please enter your information below. This will be shared with the agent when your chat begins.</p>
+  <div id="escalationForm">
+    <p class="subtitle">Send this customer's cancellation request to the Retention Queue. Fill in what you have and hit Send — no need to stay on this screen.</p>
 
     <div class="form-group">
-      <label for="fullName">Full Name</label>
-      <input type="text" id="fullName" placeholder="Jane Smith" />
-      <div class="error-msg" id="nameError">Please enter your name.</div>
+      <label for="custName">Customer Name</label>
+      <input type="text" id="custName" placeholder="Jane Smith" />
     </div>
 
     <div class="form-group">
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" placeholder="(555) 555-5555" />
-      <div class="error-msg" id="phoneError">Please enter your phone number.</div>
+      <label for="acctNum">Account / Policy Number</label>
+      <input type="text" id="acctNum" placeholder="ACC-123456" />
     </div>
 
     <div class="form-group">
-      <label for="email">Email Address</label>
-      <input type="email" id="email" placeholder="jane@example.com" />
-      <div class="error-msg" id="emailError">Please enter a valid email address.</div>
+      <label for="reason">Reason for Cancellation</label>
+      <input type="text" id="reason" placeholder="Service issue, billing, etc." />
     </div>
 
-    <button class="start-btn" onclick="startChat()">Start Chat</button>
+    <div class="form-group">
+      <label for="notes">Notes</label>
+      <textarea id="notes" placeholder="Brief details for the retention team"></textarea>
+    </div>
+
+    <button class="send-btn" onclick="sendToRetention()">Send to Retention</button>
   </div>
 
   <div class="success-msg" id="successMsg">
-    <div class="icon">💬</div>
-    <p>You're all set!</p>
-    <span>The chat widget is now open in the bottom-right corner.</span>
+    <div class="icon">✅</div>
+    <p>Sent to Retention Queue</p>
+    <span>You can close this and continue with the call.</span>
   </div>
 
 </div>
@@ -215,79 +169,68 @@
   ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
 })(window, 'Genesys', 'https://apps.usw2.pure.cloud/genesys-bootstrap/genesys.min.js', {
   environment: 'prod-usw2',
-  deploymentId: 'b1ab33f7-8ca3-4767-8929-4a3df7c5c2e8'
+  // TODO: replace with the deploymentId of the NEW Web Messaging deployment
+  // that points at the "Transfer to ACD -> Retention Queue" flow.
+  deploymentId: 'REPLACE_WITH_RETENTION_DEPLOYMENT_ID'
 });
 
-// Hide launcher until form is submitted
+// Keep the launcher hidden -- this page fires the message itself,
+// the agent doesn't need to see or manage the chat window.
 Genesys('subscribe', 'Launcher:ready', function() {
   Genesys('command', 'Launcher:hide');
 });
 
-function startChat() {
-  const name  = document.getElementById('fullName').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const email = document.getElementById('email').value.trim();
-  let valid = true;
+// Voice conversation this escalation originated from, injected via
+// Application URL interpolation: ?voiceConversationId={{gcConversationId}}
+const urlParams = new URLSearchParams(window.location.search);
+const voiceConversationId = urlParams.get('voiceConversationId') || '';
 
-  if (!name) {
-    document.getElementById('fullName').classList.add('error');
-    document.getElementById('nameError').style.display = 'block';
-    valid = false;
-  } else {
-    document.getElementById('fullName').classList.remove('error');
-    document.getElementById('nameError').style.display = 'none';
-  }
+if (voiceConversationId) {
+  document.getElementById('voiceTagValue').textContent = voiceConversationId;
+  document.getElementById('voiceTag').style.display = 'block';
+}
 
-  if (!phone) {
-    document.getElementById('phone').classList.add('error');
-    document.getElementById('phoneError').style.display = 'block';
-    valid = false;
-  } else {
-    document.getElementById('phone').classList.remove('error');
-    document.getElementById('phoneError').style.display = 'none';
-  }
+function sendToRetention() {
+  const custName = document.getElementById('custName').value.trim();
+  const acctNum  = document.getElementById('acctNum').value.trim();
+  const reason   = document.getElementById('reason').value.trim();
+  const notes    = document.getElementById('notes').value.trim();
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email || !emailRegex.test(email)) {
-    document.getElementById('email').classList.add('error');
-    document.getElementById('emailError').style.display = 'block';
-    valid = false;
-  } else {
-    document.getElementById('email').classList.remove('error');
-    document.getElementById('emailError').style.display = 'none';
-  }
-
-  if (!valid) return;
-
-  // Pass data via both methods for maximum compatibility
+  // Tag the new Retention Queue conversation with everything the
+  // cancellation agent captured, plus a link back to the voice call.
   Genesys('command', 'Database.set', {
     messaging: {
       customAttributes: {
-        'customerName':          name,
-        'customerPhone':         phone,
-        'customerEmail':         email,
-        'context.customerName':  name,
-        'context.customerPhone': phone,
-        'context.customerEmail': email
+        'context.customerName':               custName,
+        'context.accountNumber':               acctNum,
+        'context.cancellationReason':          reason,
+        'context.notes':                       notes,
+        'context.originatingVoiceConversationId': voiceConversationId
       }
     }
   });
 
-  // Also set contact identity fields directly
-  Genesys('command', 'Database.set', {
-    contact: {
-      firstName: name,
-      phone:     phone,
-      email:     email
-    }
+  // Open the widget just long enough to send the initial message,
+  // then let it run in the background.
+  const summary = 'Cancellation escalation\n'
+    + 'Customer: ' + (custName || 'n/a') + '\n'
+    + 'Account/Policy #: ' + (acctNum || 'n/a') + '\n'
+    + 'Reason: ' + (reason || 'n/a') + '\n'
+    + 'Notes: ' + (notes || 'n/a');
+
+  // MessagingService is lazy-loaded when Messenger opens, so wait for
+  // its ready event before sending the message.
+  Genesys('subscribe', 'MessagingService.ready', function () {
+    Genesys('command', 'MessagingService.sendMessage', { message: summary },
+      function () { /* sent */ },
+      function () { /* failed to send - conversation may still show in transcript for retry */ }
+    );
   });
 
-  // Show launcher and open widget
   Genesys('command', 'Launcher:show');
   Genesys('command', 'Messenger:open');
 
-  // Swap form for success message
-  document.getElementById('chatForm').style.display = 'none';
+  document.getElementById('escalationForm').style.display = 'none';
   document.getElementById('successMsg').style.display = 'block';
 }
 </script>
