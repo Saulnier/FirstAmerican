@@ -169,9 +169,10 @@
   ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
 })(window, 'Genesys', 'https://apps.usw2.pure.cloud/genesys-bootstrap/genesys.min.js', {
   environment: 'prod-usw2',
-  // TODO: replace with the deploymentId of the NEW Web Messaging deployment
-  // that points at the "Transfer to ACD -> Retention Queue" flow.
-  deploymentId: 'REPLACE_WITH_RETENTION_DEPLOYMENT_ID'
+  // Reusing the existing First American Web Messaging deployment --
+  // the bot flow behind it branches on context.escalationTarget below
+  // to route this to Retention Queue instead of its normal path.
+  deploymentId: 'b1ab33f7-8ca3-4767-8929-4a3df7c5c2e8'
 });
 
 // Keep the launcher hidden -- this page fires the message itself,
@@ -205,7 +206,11 @@ function sendToRetention() {
         'context.accountNumber':               acctNum,
         'context.cancellationReason':          reason,
         'context.notes':                       notes,
-        'context.originatingVoiceConversationId': voiceConversationId
+        'context.originatingVoiceConversationId': voiceConversationId,
+        // Flag the bot flow checks (via Get Participant Data + Decision)
+        // to route this message to Retention Queue instead of its
+        // normal destination.
+        'context.escalationTarget':            'RetentionQueue'
       }
     }
   });
